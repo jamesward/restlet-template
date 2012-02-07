@@ -10,36 +10,38 @@ import org.restlet.routing.Redirector;
 
 public class SecureFilter extends Filter {
 
-    private boolean doRediect;
+    private boolean doRedirect;
 
     public SecureFilter(Restlet next) {
         super();
-        doRediect = false;
+        doRedirect = false;
         setNext(next);
     }
 
     public SecureFilter(Restlet next, boolean doRedirect) {
         super();
+        this.doRedirect = doRedirect;
         setNext(next);
     }
 
     public SecureFilter(Class<?> next) {
         super();
-        doRediect = false;
+        doRedirect = false;
         setNext(next);
     }
 
     public SecureFilter(Class<?> next, boolean doRedirect) {
         super();
+        this.doRedirect = doRedirect;
         setNext(next);
     }
 
-    public boolean isDoRediect() {
-        return doRediect;
+    public boolean isDoRedirect() {
+        return doRedirect;
     }
 
-    public void setDoRediect(boolean doRediect) {
-        this.doRediect = doRediect;
+    public void setDoRedirect(boolean doRedirect) {
+        this.doRedirect = doRedirect;
     }
 
     @Override
@@ -47,7 +49,7 @@ public class SecureFilter extends Filter {
         Form requestHeaders = (Form) request.getAttributes().get("org.restlet.http.headers");
 
         if ((requestHeaders.getValues("x-forwarded-proto") != null) && (requestHeaders.getValues("x-forwarded-proto").indexOf("https") != 0)) {
-            if (doRediect) {
+            if (doRedirect) {
                 String target = "https://" + request.getHostRef().getHostDomain() + request.getResourceRef().getPath();
                 System.out.println("target = " + target);
                 Redirector redirector = new Redirector(getContext(), target, Redirector.MODE_CLIENT_PERMANENT);
