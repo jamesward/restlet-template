@@ -51,10 +51,9 @@ public class SecureFilter extends Filter {
         if ((requestHeaders.getValues("x-forwarded-proto") != null) && (requestHeaders.getValues("x-forwarded-proto").indexOf("https") != 0)) {
             if (doRedirect) {
                 String target = "https://" + request.getHostRef().getHostDomain() + request.getResourceRef().getPath();
-                System.out.println("target = " + target);
-                Redirector redirector = new Redirector(getContext(), target, Redirector.MODE_CLIENT_PERMANENT);
-                setNext(redirector);
-                return CONTINUE;
+                Redirector redirector = new Redirector(getContext(), target, Redirector.MODE_CLIENT_SEE_OTHER);
+                redirector.handle(request, response);
+                return STOP;
             }
             else {
                 response.setStatus(Status.CLIENT_ERROR_FORBIDDEN);
