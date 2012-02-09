@@ -14,8 +14,8 @@ public class HelloApplication extends Application {
 
         // Defines only one route
         router.attach("/", HelloResource.class);
-        router.attach("/secure", new SecureFilter(HelloSecureResource.class));
-        router.attach("/secureWithRedirect", new SecureFilter(HelloSecureResource.class, true));
+        router.attach("/secure", new SecureFilter(getContext(), HelloSecureResource.class));
+        router.attach("/secureWithRedirect", new SecureFilter(getContext(), HelloSecureResource.class, true));
 
         return router;
     }

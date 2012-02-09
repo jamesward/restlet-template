@@ -1,5 +1,6 @@
 package com.jamesward.restlet;
 
+import org.restlet.Context;
 import org.restlet.Request;
 import org.restlet.Response;
 import org.restlet.Restlet;
@@ -12,26 +13,26 @@ public class SecureFilter extends Filter {
 
     private boolean doRedirect;
 
-    public SecureFilter(Restlet next) {
-        super();
+    public SecureFilter(Context context, Restlet next) {
+        super(context);
         doRedirect = false;
         setNext(next);
     }
 
-    public SecureFilter(Restlet next, boolean doRedirect) {
-        super();
+    public SecureFilter(Context context, Restlet next, boolean doRedirect) {
+        super(context);
         this.doRedirect = doRedirect;
         setNext(next);
     }
 
-    public SecureFilter(Class<?> next) {
-        super();
+    public SecureFilter(Context context, Class<?> next) {
+        super(context);
         doRedirect = false;
         setNext(next);
     }
 
-    public SecureFilter(Class<?> next, boolean doRedirect) {
-        super();
+    public SecureFilter(Context context, Class<?> next, boolean doRedirect) {
+        super(context);
         this.doRedirect = doRedirect;
         setNext(next);
     }
